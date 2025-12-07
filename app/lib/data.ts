@@ -85,13 +85,16 @@ export async function fetchCardData() {
   }
 }
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 6; // Number of invoices to display in one page
+
+// Return the invoices based on the query string for the current page
 export async function fetchFilteredInvoices(
   query: string,
   currentPage: number,
 ) {
-  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE; // The number of rows to skip before returning the result
 
+  // Search for the invoices based on the query string
   try {
     const invoices = await sql<InvoicesTable[]>`
       SELECT
@@ -121,6 +124,7 @@ export async function fetchFilteredInvoices(
   }
 }
 
+// Returns the total number of pages for the provided query string
 export async function fetchInvoicesPages(query: string) {
   try {
     const data = await sql`SELECT COUNT(*)
